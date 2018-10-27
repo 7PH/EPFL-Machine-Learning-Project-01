@@ -20,6 +20,11 @@ Then, before a commit, you need to regenerate the README file using
 npm run build
 \`\`\`
 
+To run the python linter, use
+\`\`\`bash
+npm run lint
+\`\`\`
+
 # @TODO
 
 The content below is automatically generated

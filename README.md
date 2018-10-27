@@ -10,9 +10,14 @@ To ensure your setup is ok you can run
 npm test
 ```
 
-Then, before a commit, you need to regenerate the README file, use
+Then, before a commit, you need to regenerate the README file using
 ```bash
 npm run build
+```
+
+To run the python linter, use
+```bash
+npm run lint
 ```
 
 # @TODO
@@ -40,4 +45,6 @@ The content below is automatically generated
 ./src/kfold.py:240:    @TODO document
 ./src/losses.py:6:    @TODO document
 ./src/run.py:11:# @TODO
+./src/utils.py:6:    @TODO move this (logistic helper)
+./src/utils.py:19:    @TODO move this (logistic helper)
 ```
