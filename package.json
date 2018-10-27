@@ -5,7 +5,8 @@
     "description": "",
     "main": "",
     "scripts": {
-        "build": "sh scripts/build-readme.sh"
+        "build": "sh scripts/build-readme.sh",
+        "test": "sh scripts/karma.sh"
     },
     "repository": {
         "type": "git",
