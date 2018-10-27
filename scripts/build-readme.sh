@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 OUTFILE="README.md";
-TODO=$(grep -in --color "@TODO" ./*.py);
+TODO=$(grep -in --color "@TODO" ./src/*.py);
 
 CONTENT="
 # Dev
@@ -15,7 +15,7 @@ To ensure your setup is ok you can run
 npm test
 \`\`\`
 
-Then, before a commit, you need to regenerate the README file, use
+Then, before a commit, you need to regenerate the README file using
 \`\`\`bash
 npm run build
 \`\`\`
