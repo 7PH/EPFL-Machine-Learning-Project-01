@@ -1,11 +1,13 @@
 import numpy as np
 from timeit import default_timer as timer
 
-from maths_helpers import sigmoid
-from helpers import load_csv_data, create_csv_submission, predict_labels
-
+from src.gradients import compute_logistic_gradient
+from src.helpers import load_csv_data, create_csv_submission, predict_labels, label_accuracy
 
 # Least squares
+from src.implementations import reg_logistic_gradient
+
+
 def least_squares(tx, y):
     """w = (tx'.tx)-1 . tx'y"""
     txt = tx.T

@@ -1,5 +1,5 @@
 import numpy as np
-from utils import logistic_gradient_step, reg_logistic_gradient_step
+from src.utils import logistic_gradient_step, reg_logistic_gradient_step
 
 
 def least_squares(y, tx):

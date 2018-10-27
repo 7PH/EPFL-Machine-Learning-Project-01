@@ -1,7 +1,7 @@
 import numpy as np
-from augmentation import build_poly
-from helpers import predict_labels, label_accuracy
-from implementations import ridge_regression
+from src.augmentation import build_poly
+from src.helpers import predict_labels, label_accuracy
+from src.implementations import ridge_regression
 
 # @TODO get this outta here
 names_columns = 'DER_mass_MMC,DER_mass_transverse_met_lep,DER_mass_vis,DER_pt_h,DER_deltaeta_jet_jet,' \

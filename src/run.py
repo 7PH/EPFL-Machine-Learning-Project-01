@@ -1,7 +1,7 @@
-from helpers import load_csv_data
+from src.helpers import load_csv_data
 
 # Constants
-DATA_FOLDER = './data/'
+DATA_FOLDER = '../data/'
 
 # Load data
 y_train, x_train, x_ids = load_csv_data(DATA_FOLDER + "train.csv")

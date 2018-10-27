@@ -1,4 +1,4 @@
-from maths_helpers import sigmoid
+from src.maths_helpers import sigmoid
 
 
 def compute_logistic_gradient(y, tx, w):
