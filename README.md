@@ -1,5 +1,14 @@
 
+# Dev
+To install, clone the repo.
+To regenerate the README file, use
+```bash
+npm run build
+```
+
 # @TODO
+
+The content below is automatically generated
 ```text
 ./augmentation.py:7:    @TODO document
 ./augmentation.py:20:    @TODO document
