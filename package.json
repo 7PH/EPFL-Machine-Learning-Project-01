@@ -1,0 +1,20 @@
+{
+    "name": "ml_project_01",
+    "version": "0.0.0",
+    "private": true,
+    "description": "",
+    "main": "",
+    "scripts": {
+        "build-readme": "sh scripts/build-readme.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/7PH/EPFL-Machine-Learning-Project-01.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/7PH/EPFL-Machine-Learning-Project-01/issues"
+    },
+    "homepage": "https://github.com/7PH/EPFL-Machine-Learning-Project-01#readme"
+}
