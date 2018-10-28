@@ -1,10 +1,15 @@
 
-# Dev
+# How to use (UNIX)
+
 First, you need to clone the repository.
 
-The CSV files test.csv and train.csv should be present in the data folder and are not included in this repository.
+Then, you can download the CSV files using
 
-To ensure your setup is ok you can run
+```bash
+npm run setup
+```
+
+To ensure your setup is ok, you can run
 
 ```bash
 npm test
@@ -28,10 +33,10 @@ The content below is automatically generated
 ./src/augmentation.py:20:    @TODO document
 ./src/augmentation.py:33:    @TODO remove? document?
 ./src/augmentation.py:47:    @TODO document
-./src/implementations.py:7:    @TODO document
-./src/implementations.py:58:    @TODO return also loss
-./src/implementations.py:73:    @TODO return also loss
-./src/implementations.py:89:    @TODO document
+./src/implementations.py:10:    @TODO document
+./src/implementations.py:61:    @TODO return also loss
+./src/implementations.py:76:    @TODO return also loss
+./src/implementations.py:92:    @TODO document
 ./src/kfold.py:6:# @TODO get this outta here
 ./src/kfold.py:17:    @TODO document
 ./src/kfold.py:45:    @TODO document? move?

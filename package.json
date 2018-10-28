@@ -5,6 +5,7 @@
     "description": "",
     "main": "",
     "scripts": {
+        "setup": "sh scripts/download.sh",
         "build": "sh scripts/build-readme.sh",
         "test": "sh scripts/karma.sh",
         "lint": "pylint src/*.py",

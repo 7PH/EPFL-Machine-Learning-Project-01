@@ -4,12 +4,17 @@ OUTFILE="README.md";
 TODO=$(grep -in --color "@TODO" ./src/*.py);
 
 CONTENT="
-# Dev
+# How to use (UNIX)
+
 First, you need to clone the repository.
 
-The CSV files test.csv and train.csv should be present in the data folder and are not included in this repository.
+Then, you can download the CSV files using
 
-To ensure your setup is ok you can run
+\`\`\`bash
+npm run setup
+\`\`\`
+
+To ensure your setup is ok, you can run
 
 \`\`\`bash
 npm test
