@@ -20,18 +20,11 @@ sh scripts/test-karma.sh
 sh scripts/test-unit.sh
 ```
 
-Then, before a commit, you need to regenerate the README file using
+Before a commit, you need to regenerate the README file using
 ```bash
 npm run build
 # or
 sh scripts/build.sh
-```
-
-To run the python linter, use
-```bash
-npm run lint
-# or
-pylint src/*.py
 ```
 
 To start the `run.sh` file, use
