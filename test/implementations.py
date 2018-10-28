@@ -35,7 +35,7 @@ class TestImplementations(unittest.TestCase):
 
     def test_least_squares(self):
         w, loss = least_squares(y, tx)
-        self.assert_result('lest_squares', w, loss)
+        self.assert_result('least_squares', w, loss)
 
     def test_ridge_regression(self):
         w, loss = least_squares(y, tx)
