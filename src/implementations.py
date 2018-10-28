@@ -1,25 +1,21 @@
 import numpy as np
-
 from src.gradients import compute_gradient_mse
 from src.helpers import batch_iter
-from src.losses import calculate_mse, compute_mse
+from src.losses import calculate_mse, compute_mse, compute_sig_loss, compute_reg_sig_loss
 from src.utils import logistic_gradient_step, reg_logistic_gradient_step
 
 
-def least_squares(y, tx):
+def least_squares_GD(y, tx, initial_w, max_iters, gamma):
     """
-    @TODO document
+    Given a gamma parameter, we iterate to find the weight's vector :"max_iters" given a parameter.
+
     :param y:
     :param tx:
+    :param initial_w:
+    :param max_iters:
+    :param gamma:
     :return:
     """
-    a = tx.T.dot(tx)
-    b = tx.T.dot(y)
-    return np.linalg.solve(a, b)
-
-
-def least_squares_GD(y, tx, initial_w, max_iters, gamma):
-    # Given a gamma parameter, we iterate to find the weight's vector :"max_iters" given a parameter.
 
     # Set an initial weight's vector and compute its loss
     w = initial_w
@@ -39,12 +35,20 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
 
 
 def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
-    # Given a gamma parameter, we iterate to find the weight's vector :"max_iters" given a parameter.
+    """
+    Given a gamma parameter, we iterate to find the weight's vector :"max_iters" given a parameter.
+
+    :param y:
+    :param tx:
+    :param initial_w:
+    :param max_iters:
+    :param gamma:
+    :return:
+    """
 
     # Set an initial weight's vector and compute its loss
     w = initial_w
     loss = compute_mse(y, tx, w)
-    gamma_t = gamma
     for iter in range(max_iters):
         for y_batch, tx_batch in batch_iter(y, tx, batch_size=1, num_batches=1):
             # compute a stochastic gradient and loss
@@ -57,46 +61,29 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
     return w, loss
 
 
-def logistic_gradient(y, tx, w, gamma, max_iter=100):
-    """
-    @TODO return also loss
-    :param y:
-    :param tx:
-    :param w:
-    :param gamma:
-    :param max_iter:
-    :return:
-    """
-    for i in range(max_iter):
-        w = logistic_gradient_step(y, tx, w, gamma)
-    return w
-
-
-def reg_logistic_gradient(y, tx, w, l, gamma, max_iter=100):
-    """
-    @TODO return also loss
-    :param y:
-    :param tx:
-    :param w:
-    :param l:
-    :param gamma:
-    :param max_iter:
-    :return:
-    """
-    for i in range(max_iter):
-        w = reg_logistic_gradient_step(y, tx, w, l, gamma)
-    return w
-
-
-def ridge_regression(y, tx, lamb):
+def least_squares(y, tx):
     """
     @TODO document
     :param y:
     :param tx:
-    :param lamb:
     :return:
     """
-    ai = lamb * np.identity(tx.shape[1])
+    a = tx.T.dot(tx)
+    b = tx.T.dot(y)
+    w = np.linalg.solve(a, b)
+    return w, compute_mse(y, tx, w)
+
+
+def ridge_regression(y, tx, lambda_):
+    """
+    Ridge regression using normal equations
+
+    :param y:
+    :param tx:
+    :param lambda_:
+    :return:
+    """
+    ai = lambda_ * np.identity(tx.shape[1])
     a = tx.T.dot(tx) + ai
     b = tx.T.dot(y)
 
@@ -104,8 +91,41 @@ def ridge_regression(y, tx, lamb):
         c = np.linalg.solve(a, b)
     except np.linalg.LinAlgError as e:
         if 'Singular matrix' in str(e):
-            print("singular", lamb)
+            print("singular", lambda_)
             c = np.full((a.shape[0],), -np.inf)
         else:
             raise
     return c
+
+
+def logistic_regression(y, tx, initial_w, max_iters, gamma):
+    """
+    Logistic regression using gradient descent
+
+    :param y:
+    :param tx:
+    :param initial_w:
+    :param max_iters:
+    :param gamma:
+    :return:
+    """
+    for i in range(max_iters):
+        initial_w = logistic_gradient_step(y, tx, initial_w, gamma)
+    return initial_w, compute_sig_loss(y, tx, initial_w)
+
+
+def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
+    """
+    Regularized logistic regression using gradient descent
+
+    :param y:
+    :param tx:
+    :param lambda_:
+    :param initial_w:
+    :param max_iters:
+    :param gamma:
+    :return:
+    """
+    for i in range(max_iters):
+        initial_w = reg_logistic_gradient_step(y, tx, initial_w, lambda_, gamma)
+    return initial_w, compute_reg_sig_loss(y, tx, initial_w, lambda_)

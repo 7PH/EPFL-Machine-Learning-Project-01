@@ -75,19 +75,18 @@ def predict_22(weights, x, degree):
     return y_sub
 
 
-# Load data
+print("Loading data")
 y_train, x_train, x_ids = load_csv_data(DATA_FOLDER + "train.csv")
 y_test, x_test, x_test_ids = load_csv_data(DATA_FOLDER + "test.csv")
 
-print("########### Data loaded #######################")
+print("Running")
 # Degree and lambda are decided by a grid search for these two parameters.
 optimal_lambda = 0.0001291549665014884
 weights = make_22_weights(y_train, x_train, optimal_lambda, degree=8)
 y_predicted = predict_22(weights, x_test, degree=8)
 
-print("########### End prediction #######################")
-
-# Generate the final submission
+print("Storing prediction")
 filename = "submission.csv"
 create_csv_submission(x_test_ids, y_predicted, filename)
-print("Output file name: " + filename)
+
+print("File name: " + filename)
