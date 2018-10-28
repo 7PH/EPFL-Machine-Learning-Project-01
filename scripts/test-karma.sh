@@ -18,4 +18,5 @@ ensure_file_exit "data/train.csv";
 echo "\nVerifying that python linter is installed..";
 ensure_command_exists "pylint";
 
-echo "\nEverything seems OK";
+echo "\nEnvironment checks OK";
+exit 0;

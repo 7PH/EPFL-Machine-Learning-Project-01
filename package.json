@@ -5,9 +5,9 @@
     "description": "",
     "main": "",
     "scripts": {
-        "setup": "sh scripts/download.sh",
-        "build": "sh scripts/build-readme.sh",
-        "test": "sh scripts/karma.sh",
+        "setup": "sh scripts/setup.sh",
+        "build": "sh scripts/build.sh",
+        "test": "sh scripts/test-karma.sh && echo \"Running unit tests\" && sh scripts/test-unit.sh",
         "lint": "pylint src/*.py",
         "start": "sh scripts/start.sh"
     },

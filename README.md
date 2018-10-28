@@ -7,22 +7,38 @@ Then, you can download the CSV files using
 
 ```bash
 npm run setup
+# or
+sh scripts/setup.sh
 ```
 
-To ensure your setup is ok, you can run
+To run the unit tests and ensure your environment is correctly setup, you must run
 
 ```bash
 npm test
+# or
+sh scripts/test-karma.sh
+sh scripts/test-unit.sh
 ```
 
 Then, before a commit, you need to regenerate the README file using
 ```bash
 npm run build
+# or
+sh scripts/build.sh
 ```
 
 To run the python linter, use
 ```bash
 npm run lint
+# or
+pylint src/*.py
+```
+
+To start the `run.sh` file, use
+```bash
+npm start
+# or
+python -m src.run
 ```
 
 # @TODO
@@ -33,20 +49,18 @@ The content below is automatically generated
 ./src/augmentation.py:20:    @TODO document
 ./src/augmentation.py:33:    @TODO remove? document?
 ./src/augmentation.py:47:    @TODO document
-./src/implementations.py:10:    @TODO document
-./src/implementations.py:61:    @TODO return also loss
-./src/implementations.py:76:    @TODO return also loss
-./src/implementations.py:92:    @TODO document
-./src/kfold.py:6:# @TODO get this outta here
-./src/kfold.py:17:    @TODO document
-./src/kfold.py:45:    @TODO document? move?
-./src/kfold.py:73:    @TODO document
-./src/kfold.py:99:    @TODO move to augmentation?
-./src/kfold.py:125:    # @TODO check that my modification did not fuck up everything
-./src/kfold.py:137:    @TODO refactor & document
-./src/kfold.py:156:    @TODO document
-./src/kfold.py:173:    @TODO document
-./src/losses.py:16:    @TODO document
+./src/implementations.py:66:    @TODO document
+./src/kfold.py:16:    @TODO document
+./src/kfold.py:44:    @TODO document? move?
+./src/kfold.py:70:    @TODO document
+./src/kfold.py:96:    @TODO move to augmentation?
+./src/kfold.py:122:    # @TODO check that my modification did not fuck up everything
+./src/kfold.py:134:    @TODO refactor & document
+./src/kfold.py:153:    @TODO document
+./src/kfold.py:170:    @TODO document
+./src/losses.py:13:    @TODO document
+./src/losses.py:25:    @TODO refactor (important)
+./src/losses.py:38:    @TODO refactor (important)
 ./src/run.py:11:    @TODO document
 ./src/run.py:43:    @TODO document
 ./src/utils.py:6:    @TODO move this (logistic helper)
