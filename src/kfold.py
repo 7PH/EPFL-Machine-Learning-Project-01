@@ -1,7 +1,7 @@
 import numpy as np
-from src.augmentation import build_poly
-from src.helpers import predict_labels, label_accuracy
-from src.implementations import ridge_regression
+from augmentation import build_poly
+from helpers import predict_labels, label_accuracy
+from implementations import ridge_regression
 
 # @TODO get this outta here
 names_columns = 'DER_mass_MMC,DER_mass_transverse_met_lep,DER_mass_vis,DER_pt_h,DER_deltaeta_jet_jet,' \
@@ -66,73 +66,6 @@ def angles_extension_22(x, remaining_columns, old_new, nc=names_columns):
     return full
 
 
-def make_22_weights(y_tr, x, lambda_, degree):
-    """
-    @TODO document
-    :param y_tr:
-    :param x:
-    :param lambda_:
-    :param degree:
-    :return:
-    """
-    weights = {}
-    jet_masks = [
-        x[:, 22] == 0,
-        x[:, 22] == 1,
-        x[:, 22] > 1]
-
-    ys_train = [y_tr[mask] for mask in jet_masks]
-    xs = [x[mask] for mask in jet_masks]
-    x_p_tr = {}
-
-    for i, mask in enumerate(jet_masks):
-        if i == 0:
-            x_p_tr[i] = features_expansion(xs[i], degree + 1)
-        if i == 1:
-            x_p_tr[i] = features_expansion(xs[i], degree + 2)
-        if i > 1:
-            x_p_tr[i] = features_expansion(xs[i], degree + 3)
-
-        weights[i] = ridge_regression(ys_train[i], x_p_tr[i], lambda_)
-
-    return weights
-
-
-def predict_22_stuff(weights, x, degree):
-    """
-    @TODO document
-    :param weights:
-    :param x:
-    :param degree:
-    :return:
-    """
-    # weights = {}
-    jet_masks = [
-        x[:, 22] == 0,
-        x[:, 22] == 1,
-        x[:, 22] > 1]
-
-    xs = [x[mask] for mask in jet_masks]
-
-    y_sub = np.zeros(x.shape[0])
-    x_p_te = {}
-    for i, mask in enumerate(jet_masks):
-        if i == 0:
-            x_p_te[i] = features_expansion(xs[i], degree + 1)
-        if i == 1:
-            x_p_te[i] = features_expansion(xs[i], degree + 2)
-        if i > 1:  # two  in our case :)
-            x_p_te[i] = features_expansion(xs[i], degree + 3)
-
-        # print(i)
-        # print(x_p_te[i].shape)
-        # print(weights[i].shape)
-
-        y_sub[mask] = predict_labels(weights[i], x_p_te[i])  # should be y, should be x_p_te[i]
-
-    # print(y_sub.shape)
-
-    return y_sub
 
 
 def drop_999(x):

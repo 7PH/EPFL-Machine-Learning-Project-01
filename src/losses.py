@@ -1,4 +1,14 @@
 
+import numpy as np 
+
+
+
+
+def calculate_mse(e):
+    """Calculate the mse for vector e."""
+    return e.dot(e) / (2 * len(e))
+
+
 
 def compute_mse(y, tx, w):
     """
@@ -10,4 +20,5 @@ def compute_mse(y, tx, w):
     :return:
     """
     e = y - tx.dot(w)
-    return e.dot(e) / (2 * len(e))
+    return calculate_mse(e)
+
