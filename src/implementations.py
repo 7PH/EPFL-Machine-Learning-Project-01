@@ -21,8 +21,6 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
     w = initial_w
     loss = compute_mse(y, tx, w)
 
-    print("first loss: " + str(loss))
-
     for iter in range(max_iters):
         # compute loss and gradient
         grad, e = compute_gradient_mse(y, tx, w)

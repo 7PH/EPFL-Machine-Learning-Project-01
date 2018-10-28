@@ -9,6 +9,7 @@ from src.implementations import least_squares_GD, least_squares_SGD, least_squar
 DATA_FOLDER = './data/'
 
 y, tx, x_ids = load_csv_data(DATA_FOLDER + "train.csv")
+y = y.reshape((len(y), 1))
 
 
 class TestImplementations(unittest.TestCase):
