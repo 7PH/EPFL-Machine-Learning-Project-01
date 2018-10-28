@@ -16,7 +16,7 @@ class TestImplementations(unittest.TestCase):
 
     def setUp(self):
         self.initial_w = np.zeros((tx.shape[1], 1))
-        self.max_iters = 10
+        self.max_iters = 20
         self.gamma = 0.1
         self.lambda_ = 0.001
 
