@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo "Not implemented";
-exit 1;
+echo "Executing run function";
+python -m src.run;

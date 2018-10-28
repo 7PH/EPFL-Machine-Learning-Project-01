@@ -1,9 +1,9 @@
-from helpers import load_csv_data
-import numpy as np
-from augmentation import build_poly
-from helpers import *
-from implementations import ridge_regression
-from kfold import features_expansion
+from src.helpers import *
+from src.implementations import ridge_regression
+from src.kfold import features_expansion
+
+# Constants
+DATA_FOLDER = 'data/'
 
 
 def make_22_weights(y_tr, x, lambda_, degree):
@@ -75,20 +75,19 @@ def predict_22(weights, x, degree):
     return y_sub
 
 
-# Constants
-DATA_FOLDER = '../data/'
-
 # Load data
 y_train, x_train, x_ids = load_csv_data(DATA_FOLDER + "train.csv")
 y_test, x_test, x_test_ids = load_csv_data(DATA_FOLDER + "test.csv")
 
 print("########### Data loaded #######################")
 # Degree and lambda are decided by a grid search for these two parameters.
-weights = make_22_weights(y_train,x_train,0.0001291549665014884,degree=8)
-y_predicted = predict_22(weights,x_test,degree=8)
+optimal_lambda = 0.0001291549665014884
+weights = make_22_weights(y_train, x_train, optimal_lambda, degree=8)
+y_predicted = predict_22(weights, x_test, degree=8)
 
 print("########### End prediction #######################")
 
-
 # Generate the final submission
-create_csv_submission(x_test_ids,y_predicted,"final_submission.csv")
+filename = "submission.csv"
+create_csv_submission(x_test_ids, y_predicted, filename)
+print("Output file name: " + filename)

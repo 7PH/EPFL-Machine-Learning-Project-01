@@ -1,9 +1,8 @@
 import numpy as np
-from augmentation import build_poly
-from helpers import predict_labels, label_accuracy
-from implementations import ridge_regression
+from src.augmentation import build_poly, mean_replacement
+from src.helpers import label_accuracy
+#from src.run import make_22_weights, predict_22
 
-# @TODO get this outta here
 names_columns = 'DER_mass_MMC,DER_mass_transverse_met_lep,DER_mass_vis,DER_pt_h,DER_deltaeta_jet_jet,' \
                 'DER_mass_jet_jet,DER_prodeta_jet_jet,DER_deltar_tau_lep,DER_pt_tot,DER_sum_pt,DER_pt_ratio_lep_tau,' \
                 'DER_met_phi_centrality,DER_lep_eta_centrality,PRI_tau_pt,PRI_tau_eta,PRI_tau_phi,PRI_lep_pt,' \
@@ -66,8 +65,6 @@ def angles_extension_22(x, remaining_columns, old_new, nc=names_columns):
     return full
 
 
-
-
 def drop_999(x):
     """
     @TODO document
@@ -120,7 +117,7 @@ def cross_validation_22(y, x, k_indices, k, lambda_, degree):
     y_tr = y[tr_indice]
 
     weights = make_22_weights(y_tr, x_tr, lambda_, degree)
-    x_te_pred = predict_22_stuff(weights, x_te, degree)
+    x_te_pred = predict_22(weights, x_te, degree)
 
     # @TODO check that my modification did not fuck up everything
     acc = label_accuracy(x_te_pred, y_te)
@@ -201,6 +198,4 @@ def best_degree_lambda_acc_22(degrees, lambdas, x, y, k_fold):
     ind_best_deg = np.argmax(b_rmses)
     return degrees[ind_best_deg], b_lambdas[ind_best_deg]  # not sure yet for lambda
 
-
 # best_degree_lambda_acc_22(np.arange(7,10),np.logspace(-5, -3, 10),x_train,y_train,4)
-

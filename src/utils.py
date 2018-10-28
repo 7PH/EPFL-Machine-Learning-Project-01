@@ -1,4 +1,4 @@
-from gradients import compute_logistic_gradient
+from src.gradients import compute_logistic_gradient
 
 
 def logistic_gradient_step(y, tx, w, gamma):
