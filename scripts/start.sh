@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 echo "Executing run function";
-python -m src.run;
+python3.6 -m src.run;

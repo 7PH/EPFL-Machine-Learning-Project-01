@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-python -m unittest test.implementations;
+python3.6 -m unittest test.implementations;
