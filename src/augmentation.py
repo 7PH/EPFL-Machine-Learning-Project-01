@@ -55,7 +55,6 @@ def gaussian_distance_22(x, remaining_columns, old_new):
     types = ["mass", "centrality", "eta"]
 
     ar = np.array(get_column_names())
-
     names_cols = list(ar[remaining_columns])
 
     for typ in types:
@@ -78,7 +77,7 @@ def angles_extension_22(x, remaining_columns, old_new, nc):
     :param remaining_columns: "Remaining column" after drop_999 see doc of this function for more
     :param old_new: mapping from old column to new column after drop_999
     :return: extended Feature matrix through Gaussian Distance
-    :nc: names of the features
+    :param nc: names of the features
     """
     full = x
 
@@ -128,8 +127,8 @@ def drop_999(x):
 
 def features_expansion(x, degree=9):
     """
-    this function does the preprocessing and then  the augmentation using angles_extansion, build_poly
-    and gaussiance distances.
+    this function does the preprocessing and then  the augmentation using angles_extansion, build_poly and gaussiance distances.
+
     :param x: Feature matrix
     :param degree: maximum degree of polynomial base passed to build_poly function
 
@@ -137,5 +136,4 @@ def features_expansion(x, degree=9):
     """
     x_dropped, cols, old_new = drop_999(x)
     x_stuff = build_poly(angles_extension_22(x_dropped, cols, old_new, get_column_names()), degree)
-    x_plus = gaussian_distance_22(x_stuff, cols, old_new)
-    return x_plus
+    return gaussian_distance_22(x_stuff, cols, old_new)

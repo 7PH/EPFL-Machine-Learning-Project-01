@@ -39,7 +39,7 @@ def make_22_weights(y_tr, x, lambda_, degree):
         if i > 1:
             x_p_tr[i] = features_expansion(xs[i], degree)
 
-        weights[i] = ridge_regression(ys_train[i], x_p_tr[i], lambda_)
+        weights[i] = ridge_regression(ys_train[i], x_p_tr[i], lambda_)[0]
 
     return weights
 
@@ -56,7 +56,8 @@ def predict_22(weights, x, degree):
     jet_masks = [
         x[:, 22] == 0,
         x[:, 22] == 1,
-        x[:, 22] > 1]
+        x[:, 22] > 1
+    ]
 
     xs = [x[mask] for mask in jet_masks]
 
@@ -70,7 +71,7 @@ def predict_22(weights, x, degree):
         if i > 1:
             x_p_te[i] = features_expansion(xs[i], degree)
 
-        y_sub[mask] = predict_labels(weights[i][0], x_p_te[i])
+        y_sub[mask] = predict_labels(weights[i], x_p_te[i])
 
     return y_sub
 
