@@ -6,7 +6,6 @@ from src.helpers import get_column_names
 def build_poly(x, degree):
     """
     Polynomial basis functions for input data x, for j=0 up to j=degree.
-    @TODO document
     :param x:
     :param degree:
     :return:
@@ -19,7 +18,6 @@ def build_poly(x, degree):
 
 def build_poly_minus(x, degree):
     """
-    @TODO document
     :param x:
     :param degree:
     :return:
@@ -46,9 +44,9 @@ def poly_plus_cos(x, degree):
 
 def mean_replacement(x):
     """
-    @TODO document
-    :param x:
-    :return:
+    this fucntion replace the '-999' values with the mean of the column
+    :param x: dataset
+    :return: new dataset
     """
     inds = np.where(np.equal(-999, x))
     x_clean = x.copy()
@@ -62,7 +60,6 @@ def mean_replacement(x):
 
 def gaussian_distance_22(x, cols, old_new):
     """
-    @TODO document
     :param x:
     :param cols:
     :param old_new:
@@ -115,7 +112,7 @@ def angles_extension_22(x, remaining_columns, old_new, nc):
 
 def drop_999(x):
     """
-    @TODO document
+    this function drops a column if more than 50% of its elements are -999
     :param x:
     :return:
     """
@@ -137,3 +134,17 @@ def drop_999(x):
 
     x_dropped = np.delete(x, column_to_delete, 1)
     return x_dropped, column_remaining, old_new
+
+def features_expansion(x, degree=9):
+    """
+    this function does the preprocessing and then  the augmentation using angles_extansion, build_poly
+    and gaussiance distances.
+    :param x:
+    :param degree:
+
+    :return: augmented dataset
+    """
+    x_dropped, cols, old_new = drop_999(x)
+    x_stuff = build_poly(angles_extension_22(x_dropped, cols, old_new, get_column_names()), degree)
+    x_plus = gaussian_distance_22(x_stuff, cols, old_new)
+    return x_plus

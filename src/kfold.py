@@ -3,20 +3,9 @@ from src.augmentation import build_poly, drop_999, angles_extension_22, gaussian
 from src.helpers import label_accuracy, get_column_names
 
 
-# from src.run import make_22_weights, predict_22
+from src.run_best_model import make_22_weights, predict_22
 
 
-def features_expansion(x, degree=9):
-    """
-    @TODO move to augmentation?
-    :param x:
-    :param degree:
-    :return:
-    """
-    x_dropped, cols, old_new = drop_999(x)
-    x_stuff = build_poly(angles_extension_22(x_dropped, cols, old_new, get_column_names()), degree)
-    x_plus = gaussian_distance_22(x_stuff, cols, old_new)
-    return x_plus
 
 
 def cross_validation_22(y, x, k_indices, k, lambda_, degree):

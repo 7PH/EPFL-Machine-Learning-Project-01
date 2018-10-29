@@ -1,6 +1,6 @@
 from src.helpers import *
 from src.implementations import ridge_regression
-from src.kfold import features_expansion
+from src.augmentation import features_expansion
 
 # Constants
 DATA_FOLDER = 'data/'
@@ -8,19 +8,27 @@ DATA_FOLDER = 'data/'
 
 def make_22_weights(y_tr, x, lambda_, degree):
     """
-    @TODO document
+    This function does split the set x given as a parameter
+    according the the values of the 22th column,and run a ridge regression
+    using the expanded sub-set, and return 3 weight's vectors
 
-    :param y_tr:
-    :param x:
-    :param lambda_:
-    :param degree:
-    :return:
+    :param y_tr: lables of the training dataset
+    :param x: the main dataset
+    :param lambda_: parameter of rigde regression
+    :param degree: degree of polynomail augmentation
+
+    :return: 3 weight's vectors for each subset
     """
     weights = {}
+
+    #Jet splitting ( creating a mask)
+
     jet_masks = [
         x[:, 22] == 0,
         x[:, 22] == 1,
         x[:, 22] > 1]
+
+
 
     ys_train = [y_tr[mask] for mask in jet_masks]
     xs = [x[mask] for mask in jet_masks]
@@ -41,11 +49,12 @@ def make_22_weights(y_tr, x, lambda_, degree):
 
 def predict_22(weights, x, degree):
     """
-    @TODO document
-    :param weights:
-    :param x:
-    :param degree:
-    :return:
+
+    :param weights: 3 weight's vector for each jet
+    :param x: the test dataset
+    :param degree: degree of polynomail augmentation
+
+    :return: labels of prediction
     """
     jet_masks = [
         x[:, 22] == 0,
