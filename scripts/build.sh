@@ -36,7 +36,7 @@ To start the \`run.sh\` file, use
 \`\`\`bash
 npm start
 # or
-python -m src.run
+python3 run.py
 \`\`\`
 
 # Contributing
