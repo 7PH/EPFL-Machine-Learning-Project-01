@@ -5,10 +5,11 @@
     "description": "",
     "main": "",
     "scripts": {
+        "clean": "sh scripts/clean.sh",
         "setup": "sh scripts/setup.sh",
-        "build": "sh scripts/build.sh",
-        "test": "sh scripts/test-karma.sh && echo \"Running unit tests\" && sh scripts/test-unit.sh",
-        "start": "sh scripts/start.sh"
+        "build": "npm run clean && sh scripts/build.sh",
+        "test": "npm run clean && sh scripts/test-karma.sh && echo \"Running unit tests\" && sh scripts/test-unit.sh",
+        "start": "npm run clean && sh scripts/start.sh"
     },
     "repository": {
         "type": "git",

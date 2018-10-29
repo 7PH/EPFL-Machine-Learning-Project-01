@@ -29,13 +29,9 @@ def compute_sig_loss(y, tx, w):
     :param w:
     :return:
     """
-    # Prevents passing 0 to log function
-    log_precision = 0.00001
     # Compute loss
-    pred = sigmoid(tx @ w)
-    pred[np.where(pred > 1 - log_precision)] = 1 - log_precision
-    pred[np.where(pred < log_precision)] = log_precision
-    return - (y.T @ np.log(pred)) + ((1 - y).T @ np.log(1. - pred))
+    pred = sigmoid(- tx @ w)
+    return np.ones(tx.shape[0]).dot(pred) - (y.T @ tx) @ w
 
 
 def compute_reg_sig_loss(y, tx, w, lambda_):

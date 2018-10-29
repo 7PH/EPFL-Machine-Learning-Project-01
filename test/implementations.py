@@ -26,7 +26,8 @@ class TestImplementations(unittest.TestCase):
         self.assertEqual(w.shape[0], self.initial_w.shape[0])
         self.assertEqual(w.shape[1], self.initial_w.shape[1])
         self.assertGreater(acc, 60, msg="Accuracy suspicious for " + name)
-        print(name, loss)
+        self.assertEqual(loss.shape, (1, 1))
+        self.assertGreaterEqual(loss[0, 0], 0., msg="Loss should be positive (" + str(loss) + ")")
 
     def test_least_squares_gd(self):
         w, loss = least_squares_GD(y, tx, self.initial_w, self.max_iters, self.gamma)
