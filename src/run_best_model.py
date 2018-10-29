@@ -1,9 +1,8 @@
-from src.helpers import *
-from src.implementations import ridge_regression
+# coding: utf-8
+import numpy as np
 from src.augmentation import features_expansion
-
-# Constants
-DATA_FOLDER = 'data/'
+from src.helpers import load_csv_data, predict_labels, create_csv_submission
+from src.implementations import ridge_regression
 
 
 def make_22_weights(y_tr, x, lambda_, degree):
@@ -25,7 +24,8 @@ def make_22_weights(y_tr, x, lambda_, degree):
     jet_masks = [
         x[:, 22] == 0,
         x[:, 22] == 1,
-        x[:, 22] > 1]
+        x[:, 22] > 1
+    ]
 
     ys_train = [y_tr[mask] for mask in jet_masks]
     xs = [x[mask] for mask in jet_masks]
@@ -76,19 +76,10 @@ def predict_22(weights, x, degree):
     return y_sub
 
 
-print("Loading data")
-y_train, x_train, x_ids = load_csv_data(DATA_FOLDER + "train.csv")
-y_test, x_test, x_test_ids = load_csv_data(DATA_FOLDER + "test.csv")
+y_train, x_train, x_ids = load_csv_data("data/train.csv")
+y_test, x_test, x_test_ids = load_csv_data("data/test.csv")
 
-print("Running")
-# Degree and lambda are decided by a grid search for these two parameters. See kfold.py methods at the end of the file
-optimal_lambda = 0.0001291549665014884
-optimal_degree = 8
-weights = make_22_weights(y_train, x_train, optimal_lambda, degree=optimal_degree)
-y_predicted = predict_22(weights, x_test, degree=optimal_degree)
+weights = make_22_weights(y_train, x_train, 0.0001291549665014884, degree=8)
+y_predicted = predict_22(weights, x_test, degree=8)
 
-print("Storing prediction")
-filename = "submission.csv"
-create_csv_submission(x_test_ids, y_predicted, filename)
-
-print("File name: " + filename)
+create_csv_submission(x_test_ids, y_predicted, "submission.csv")

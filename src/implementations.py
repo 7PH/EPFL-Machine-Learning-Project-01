@@ -81,8 +81,8 @@ def ridge_regression(y, tx, lambda_):
     :return: Weight and mse losss of the prediction
     """
     ai = lambda_ * np.identity(tx.shape[1])
-    a = tx.T @ tx + ai
-    b = tx.T @ y
+    a = tx.T.dot(tx) + ai
+    b = tx.T.dot(y)
 
     try:
         w = np.linalg.solve(a, b)

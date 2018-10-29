@@ -6,6 +6,7 @@ from src.helpers import get_column_names
 def build_poly(x, degree):
     """
     Polynomial basis functions for input data x, for j=0 up to j=degree.
+
     :param x: Feature matrix
     :param degree: maximum degree of polynomial base (from 1 to degree)
     :return: extended data matrix through polynomial base
@@ -31,6 +32,7 @@ def build_poly_minus(x, degree):
 def mean_replacement(x):
     """
     this fucntion replace the '-999' values with the mean of the column
+
     :param x: Feature Matrix
     :return: Feature Matrix with replaced mean
     """
@@ -47,13 +49,13 @@ def mean_replacement(x):
 def gaussian_distance_22(x, remaining_columns, old_new):
     """
     Adds Gaussian distance betwen features of the same category (mass, centrality and eta only)
+
     :param x: Feature Matrix
     :param remaining_columns: "Remaining column" after drop_999 see doc of this function for more
     :param old_new: mapping from old column to new column after drop_999
     :return: extended Feature matrix through Gaussian Distance
     """
     types = ["mass", "centrality", "eta"]
-
     ar = np.array(get_column_names())
     names_cols = list(ar[remaining_columns])
 
@@ -61,18 +63,21 @@ def gaussian_distance_22(x, remaining_columns, old_new):
         for i, coli in enumerate(names_cols):
             if typ not in coli:
                 continue
+
             for j, colj in enumerate(names_cols):
                 if j <= i:
                     continue
                 if typ not in colj:
                     continue
                 x = np.c_[x, np.exp(-1.0 * (np.power(x[:, old_new[i]] - x[:, old_new[j]], 2) / 2.0))]
+
     return x
 
 
 def angles_extension_22(x, remaining_columns, old_new, nc):
     """
     Adds cosine difference of pairwise angle to the data.
+
     :param x: Feature Matrix
     :param remaining_columns: "Remaining column" after drop_999 see doc of this function for more
     :param old_new: mapping from old column to new column after drop_999
@@ -80,7 +85,6 @@ def angles_extension_22(x, remaining_columns, old_new, nc):
     :param nc: names of the features
     """
     full = x
-
     angle_features = [i for i in range(len(nc)) if nc[i].endswith('phi')]
 
     # Add pairwise modulo differences
@@ -90,7 +94,6 @@ def angles_extension_22(x, remaining_columns, old_new, nc):
         for j in angle_features_remaning:
             if j <= i:
                 continue
-
             full = np.c_[full, np.cos(x[:, old_new[i]] - x[:, old_new[j]])]
 
     # Add cosines
