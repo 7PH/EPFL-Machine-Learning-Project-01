@@ -21,8 +21,7 @@ def make_22_weights(y_tr, x, lambda_, degree):
     """
     weights = {}
 
-    #Jet splitting (creating a mask)
-
+    # Jet splitting (creating a mask)
     jet_masks = [
         x[:, 22] == 0,
         x[:, 22] == 1,
@@ -83,8 +82,9 @@ y_test, x_test, x_test_ids = load_csv_data(DATA_FOLDER + "test.csv")
 print("Running")
 # Degree and lambda are decided by a grid search for these two parameters. See kfold.py methods at the end of the file
 optimal_lambda = 0.0001291549665014884
-weights = make_22_weights(y_train, x_train, optimal_lambda, degree=8)
-y_predicted = predict_22(weights, x_test, degree=8)
+optimal_degree = 8
+weights = make_22_weights(y_train, x_train, optimal_lambda, degree=optimal_degree)
+y_predicted = predict_22(weights, x_test, degree=optimal_degree)
 
 print("Storing prediction")
 filename = "submission.csv"

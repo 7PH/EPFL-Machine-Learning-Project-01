@@ -27,6 +27,7 @@ def build_poly_minus(x, degree):
         poly = np.c_[poly, np.power(x, deg), x * -1]
     return poly
 
+
 def mean_replacement(x):
     """
     this fucntion replace the '-999' values with the mean of the column
@@ -123,6 +124,7 @@ def drop_999(x):
 
     x_dropped = np.delete(x, column_to_delete, 1)
     return x_dropped, column_remaining, old_new
+
 
 def features_expansion(x, degree=9):
     """

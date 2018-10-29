@@ -58,10 +58,9 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
 
 
 def least_squares(y, tx):
-
-
     """
     Computes the solution using least_square solution w* = (X'X)^(-1) * x'Y
+
     :param  y: Labels vector
     :param tx: Feature matrix
     :return: Weight prediction and mse loss of that prediction

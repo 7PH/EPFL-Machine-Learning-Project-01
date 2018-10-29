@@ -47,21 +47,5 @@ sh scripts/build.sh
 
 The content below is automatically generated
 ```text
-./src/augmentation.py:9:    @TODO document
-./src/augmentation.py:22:    @TODO document
-./src/augmentation.py:35:    @TODO remove? document?
-./src/augmentation.py:49:    @TODO document
-./src/augmentation.py:65:    @TODO document
-./src/augmentation.py:92:    @TODO document? move? => yes please move :) 
-./src/augmentation.py:118:    @TODO document
-./src/implementations.py:62:    @TODO document
-./src/kfold.py:11:    @TODO move to augmentation?
-./src/kfold.py:37:    # @TODO check that my modification did not fuck up everything
-./src/kfold.py:45:    @TODO refactor & document
-./src/kfold.py:64:    @TODO document
-./src/kfold.py:81:    @TODO document
-./src/run_best_model.py:11:    @TODO document
-./src/run_best_model.py:44:    @TODO document
-./src/utils.py:6:    @TODO move this (logistic helper)
-./src/utils.py:19:    @TODO move this (logistic helper)
+
 ```

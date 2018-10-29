@@ -1,11 +1,6 @@
 import numpy as np
-from src.augmentation import build_poly, drop_999, angles_extension_22, gaussian_distance_22
-from src.helpers import label_accuracy, get_column_names
-
-
+from src.helpers import label_accuracy
 from src.run_best_model import make_22_weights, predict_22
-
-
 
 
 def cross_validation_22(y, x, k_indices, k, lambda_, degree):
@@ -14,7 +9,7 @@ def cross_validation_22(y, x, k_indices, k, lambda_, degree):
     :param y: Label vector
     :param x: Feature Matrix
     :param k: round number of the k fold
-    :param lamb: Penalisation factor for ridge regression
+    :param lambda_: Penalisation factor for ridge regression
     :param degree: Maximun degree for build_poly
     :return: k'th round of k-fold for given parameters
     """
@@ -30,7 +25,6 @@ def cross_validation_22(y, x, k_indices, k, lambda_, degree):
     weights = make_22_weights(y_tr, x_tr, lambda_, degree)
     x_te_pred = predict_22(weights, x_te, degree)
 
-    # @TODO check that my modification did not fuck up everything
     acc = label_accuracy(x_te_pred, y_te)
 
     return acc
@@ -43,7 +37,7 @@ def k_folder_acc_22(k_fold, y, x, k_indices, lamb, degree):
     :param x: Feature Matrix
     :param k_indices: Indices of Data for cross validation
     :param lamb: Penalisation factor for ridge regression
-    :param degree: Maximun degree for build_poly
+    :param degree: Maximum degree for build_poly
     :return: Average of k-fold performed for given parameters
     """
     acc_tmp = []
@@ -55,7 +49,8 @@ def k_folder_acc_22(k_fold, y, x, k_indices, lamb, degree):
 
 def build_k_indices(y, k_fold, seed):
     """
-    build k indices for k-fold.
+    Build k indices for k-fold.
+
     :param y: Label vector
     :param k_fold: number of time the training operation is done
     :param seed: random seed
@@ -72,7 +67,7 @@ def build_k_indices(y, k_fold, seed):
 
 def best_degree_lambda_acc_22(degrees, lambdas, x, y, k_fold):
     """
-    @TODO document
+
     :param degrees: range of degree on which build_poly will be performed
     :param lambdas: range of penalization term tried for ridge regression
     :param x: Feature Matrix

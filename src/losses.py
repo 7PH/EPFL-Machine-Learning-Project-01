@@ -3,7 +3,12 @@ from src.maths_helpers import sigmoid
 
 
 def calculate_mse(e):
-    """Calculate the mse for vector e."""
+    """
+    Calculate the mse for vector e.
+
+    :param e: Error vector
+    :return: Mean Square Error
+    """
     return e.T.dot(e) / (2 * len(e))
 
 
