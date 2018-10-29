@@ -1,5 +1,7 @@
 import numpy as np
 
+from src.helpers import get_column_names
+
 
 def build_poly(x, degree):
     """
@@ -10,12 +12,12 @@ def build_poly(x, degree):
     :return:
     """
     poly = np.ones((len(x), 1))
-    for deg in range(1, degree+1):
+    for deg in range(1, degree + 1):
         poly = np.c_[poly, np.power(x, deg)]
     return poly
 
 
-def build_poly_minus(x,degree):
+def build_poly_minus(x, degree):
     """
     @TODO document
     :param x:
@@ -23,8 +25,8 @@ def build_poly_minus(x,degree):
     :return:
     """
     poly = np.ones((len(x), 1))
-    for deg in range(1, degree+1):
-        poly = np.c_[poly, np.power(x, deg),x*-1]
+    for deg in range(1, degree + 1):
+        poly = np.c_[poly, np.power(x, deg), x * -1]
     return poly
 
 
@@ -36,8 +38,8 @@ def poly_plus_cos(x, degree):
     :return:
     """
     poly = np.ones((len(x), 1))
-    for deg in range(1,degree+1):
-        poly = np.c_[poly,np.power(np.cos(x),deg)]
+    for deg in range(1, degree + 1):
+        poly = np.c_[poly, np.power(np.cos(x), deg)]
         poly = np.c_[poly, np.power(x, deg)]
     return poly
 
@@ -57,6 +59,7 @@ def mean_replacement(x):
 
     return complete
 
+
 def gaussian_distance_22(x, cols, old_new):
     """
     @TODO document
@@ -67,7 +70,7 @@ def gaussian_distance_22(x, cols, old_new):
     """
     types = ["mass", "centrality", "eta"]
 
-    ar = np.array(names_columns)
+    ar = np.array(get_column_names())
 
     names_cols = list(ar[cols])
 
@@ -84,7 +87,7 @@ def gaussian_distance_22(x, cols, old_new):
     return x
 
 
-def angles_extension_22(x, remaining_columns, old_new, nc=names_columns):
+def angles_extension_22(x, remaining_columns, old_new, nc):
     """
     @TODO document? move? => yes please move :) 
     Adds cosine difference of pairwise angle to the data.

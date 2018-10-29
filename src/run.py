@@ -9,6 +9,7 @@ DATA_FOLDER = 'data/'
 def make_22_weights(y_tr, x, lambda_, degree):
     """
     @TODO document
+
     :param y_tr:
     :param x:
     :param lambda_:
@@ -63,9 +64,7 @@ def predict_22(weights, x, degree):
         if i > 1:
             x_p_te[i] = features_expansion(xs[i], degree)
 
-        
         y_sub[mask] = predict_labels(weights[i], x_p_te[i])
-
 
     return y_sub
 

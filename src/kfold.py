@@ -1,14 +1,9 @@
 import numpy as np
-from src.augmentation import build_poly,drop_999,angles_extension_22,gaussian_distance_22
-from src.helpers import label_accuracy
-#from src.run import make_22_weights, predict_22
+from src.augmentation import build_poly, drop_999, angles_extension_22, gaussian_distance_22
+from src.helpers import label_accuracy, get_column_names
 
-names_columns = 'DER_mass_MMC,DER_mass_transverse_met_lep,DER_mass_vis,DER_pt_h,DER_deltaeta_jet_jet,' \
-                'DER_mass_jet_jet,DER_prodeta_jet_jet,DER_deltar_tau_lep,DER_pt_tot,DER_sum_pt,DER_pt_ratio_lep_tau,' \
-                'DER_met_phi_centrality,DER_lep_eta_centrality,PRI_tau_pt,PRI_tau_eta,PRI_tau_phi,PRI_lep_pt,' \
-                'PRI_lep_eta,PRI_lep_phi,PRI_met,PRI_met_phi,PRI_met_sumet,PRI_jet_num,PRI_jet_leading_pt,' \
-                'PRI_jet_leading_eta,PRI_jet_leading_phi,PRI_jet_subleading_pt,PRI_jet_subleading_eta,' \
-                'PRI_jet_subleading_phi,PRI_jet_all_pt'.split(',')
+
+# from src.run import make_22_weights, predict_22
 
 
 def features_expansion(x, degree=9):
@@ -19,7 +14,7 @@ def features_expansion(x, degree=9):
     :return:
     """
     x_dropped, cols, old_new = drop_999(x)
-    x_stuff = build_poly(angles_extension_22(x_dropped, cols, old_new), degree)
+    x_stuff = build_poly(angles_extension_22(x_dropped, cols, old_new, get_column_names()), degree)
     x_plus = gaussian_distance_22(x_stuff, cols, old_new)
     return x_plus
 
@@ -98,13 +93,12 @@ def best_degree_lambda_acc_22(degrees, lambdas, x, y, k_fold):
     for degree in degrees:
         acc_te = []
 
-        x_train = x # model is feature expanded in the make_22_weights and predict_22
+        x_train = x  # model is feature expanded in the make_22_weights and predict_22
         print(degree)
         for lamb in lambdas:
             mean_k_fold = k_folder_acc_22(k_fold, y, x_train, indices, lamb, degree)
             acc_te.append(mean_k_fold)
             print(degree, lamb, mean_k_fold)
-        
 
         ind_lambda_opt = np.argmax(acc_te)
         b_lambdas.append(lambdas[ind_lambda_opt])
