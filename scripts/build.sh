@@ -21,6 +21,8 @@ npm run setup
 sh scripts/setup.sh
 \`\`\`
 
+**Do not forget to activate the python virtual environment you want to use at this point**
+
 To run the unit tests and ensure your environment is correctly setup, you must run
 
 \`\`\`bash
@@ -30,18 +32,20 @@ sh scripts/test-karma.sh
 sh scripts/test-unit.sh
 \`\`\`
 
-Before a commit, you need to regenerate the README file using
-\`\`\`bash
-npm run build
-# or
-sh scripts/build.sh
-\`\`\`
-
 To start the \`run.sh\` file, use
 \`\`\`bash
 npm start
 # or
 python -m src.run
+\`\`\`
+
+# Contributing
+
+Before a commit, you need to regenerate the README file using
+\`\`\`bash
+npm run build
+# or
+sh scripts/build.sh
 \`\`\`
 
 # @TODO
