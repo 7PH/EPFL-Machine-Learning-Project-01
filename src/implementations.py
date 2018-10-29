@@ -81,18 +81,18 @@ def ridge_regression(y, tx, lambda_):
     :return: Weight and mse losss of the prediction
     """
     ai = lambda_ * np.identity(tx.shape[1])
-    a = tx.T.dot(tx) + ai
-    b = tx.T.dot(y)
+    a = tx.T @ tx + ai
+    b = tx.T @ y
 
     try:
         w = np.linalg.solve(a, b)
     except np.linalg.LinAlgError as e:
         if 'Singular matrix' in str(e):
-            print("singular", lambda_)
+            print("Singular", lambda_)
             w = np.full((a.shape[0],), -np.inf)
         else:
             raise
-    return w, compute_mse(y,tx,w)
+    return w, compute_mse(y, tx, w)
 
 
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
