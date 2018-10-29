@@ -8,27 +8,25 @@ DATA_FOLDER = 'data/'
 
 def make_22_weights(y_tr, x, lambda_, degree):
     """
-    This function does split the set x given as a parameter
-    according the the values of the 22th column,and run a ridge regression
-    using the expanded sub-set, and return 3 weight's vectors
+    This function splits the set x
+    according the the values of the 22th column, and run a ridge regression
+    using the expended sub-set, and return 3 weight's vectors
 
-    :param y_tr: lables of the training dataset
-    :param x: the main dataset
-    :param lambda_: parameter of rigde regression
+    :param y_tr: Lables of the training dataset
+    :param x: Feature Matrix
+    :param lambda_: Penalisation term for ridge regression
     :param degree: degree of polynomail augmentation
 
-    :return: 3 weight's vectors for each subset
+    :return: 3 weight vectors, one for each subset
     """
     weights = {}
 
-    #Jet splitting ( creating a mask)
+    #Jet splitting (creating a mask)
 
     jet_masks = [
         x[:, 22] == 0,
         x[:, 22] == 1,
         x[:, 22] > 1]
-
-
 
     ys_train = [y_tr[mask] for mask in jet_masks]
     xs = [x[mask] for mask in jet_masks]
@@ -50,11 +48,11 @@ def make_22_weights(y_tr, x, lambda_, degree):
 def predict_22(weights, x, degree):
     """
 
-    :param weights: 3 weight's vector for each jet
-    :param x: the test dataset
-    :param degree: degree of polynomail augmentation
+    :param weights: 3 weight's vector, one for each jet
+    :param x: Test dataset
+    :param degree: Degree of polynomail augmentation
 
-    :return: labels of prediction
+    :return: Labels of prediction
     """
     jet_masks = [
         x[:, 22] == 0,
@@ -73,7 +71,7 @@ def predict_22(weights, x, degree):
         if i > 1:
             x_p_te[i] = features_expansion(xs[i], degree)
 
-        y_sub[mask] = predict_labels(weights[i], x_p_te[i])
+        y_sub[mask] = predict_labels(weights[i][0], x_p_te[i])
 
     return y_sub
 

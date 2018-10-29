@@ -7,14 +7,14 @@ from src.utils import logistic_gradient_step, reg_logistic_gradient_step
 
 def least_squares_GD(y, tx, initial_w, max_iters, gamma):
     """
-    Given a gamma parameter, we iterate to find the weight's vector :"max_iters" given a parameter.
+    Given a gamma parameter, we iterate to find the weight vector :"max_iters" given a parameter.
 
-    :param y:
-    :param tx:
-    :param initial_w:
-    :param max_iters:
-    :param gamma:
-    :return:
+    :param y: Labels vector
+    :param tx: Features matrix
+    :param initial_w: initial weight vector
+    :param max_iters: number of iterations
+    :param gamma: learning rate
+    :return: weight prediction and mse loss of that prediction
     """
 
     # Set an initial weight's vector and compute its loss
@@ -34,12 +34,12 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
     """
     Given a gamma parameter, we iterate to find the weight's vector
 
-    :param y:
-    :param tx:
-    :param initial_w:
-    :param max_iters: Number of iterations to perform
-    :param gamma:
-    :return:
+    :param y: Labels vector
+    :param tx: Features matrix
+    :param initial_w: Initial weight vector
+    :param max_iters: Number of iterations
+    :param gamma: Learning rate
+    :return: Weight prediction and mse loss of that prediction
     """
 
     # Set an initial weight's vector and compute its loss
@@ -62,9 +62,9 @@ def least_squares(y, tx):
 
     """
     Computes the solution using least_square solution w* = (X'X)^(-1) * x'Y
-    :param  y:
-    :param tx:
-    :return:
+    :param  y: Labels vector
+    :param tx: Feature matrix
+    :return: Weight prediction and mse loss of that prediction
     """
     a = tx.T.dot(tx)
     b = tx.T.dot(y)
@@ -76,35 +76,35 @@ def ridge_regression(y, tx, lambda_):
     """
     Ridge regression using normal equations
 
-    :param y:
-    :param tx:
-    :param lambda_:
-    :return:
+    :param y: Labels vector
+    :param tx: Feature matrix
+    :param lambda_: Penalisation factor
+    :return: Weight and mse losss of the prediction
     """
     ai = lambda_ * np.identity(tx.shape[1])
     a = tx.T.dot(tx) + ai
     b = tx.T.dot(y)
 
     try:
-        c = np.linalg.solve(a, b)
+        w = np.linalg.solve(a, b)
     except np.linalg.LinAlgError as e:
         if 'Singular matrix' in str(e):
             print("singular", lambda_)
-            c = np.full((a.shape[0],), -np.inf)
+            w = np.full((a.shape[0],), -np.inf)
         else:
             raise
-    return c
+    return w, compute_mse(y,tx,w)
 
 
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
     """
     Logistic regression using gradient descent
 
-    :param y:
-    :param tx:
-    :param initial_w:
-    :param max_iters:
-    :param gamma:
+    :param y: Labels vector
+    :param tx: Feature matrix
+    :param initial_w: Initital weight vector
+    :param max_iters: Number of iterations
+    :param gamma: Learning rate
     :return:
     """
     for i in range(max_iters):
@@ -116,12 +116,12 @@ def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
     """
     Regularized logistic regression using gradient descent
 
-    :param y:
-    :param tx:
-    :param lambda_:
-    :param initial_w:
-    :param max_iters:
-    :param gamma:
+    :param y: Labels vector
+    :param tx: Feature matrix
+    :param lambda_: Regularition coefficient
+    :param initial_w: Initial weight vector
+    :param max_iters: Number of iterations
+    :param gamma: Learning rate
     :return:
     """
     for i in range(max_iters):

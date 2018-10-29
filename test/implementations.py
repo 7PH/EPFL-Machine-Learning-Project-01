@@ -4,7 +4,7 @@ import numpy as np
 
 from src.helpers import load_csv_data, predict_labels, label_accuracy
 from src.implementations import least_squares_GD, least_squares_SGD, least_squares, logistic_regression, \
-    reg_logistic_regression
+    reg_logistic_regression, ridge_regression
 
 DATA_FOLDER = './data/'
 
@@ -42,7 +42,7 @@ class TestImplementations(unittest.TestCase):
         self.assert_result('least_squares', w, loss)
 
     def test_ridge_regression(self):
-        w, loss = least_squares(y, tx)
+        w, loss = ridge_regression(y, tx, self.lambda_)
         self.assert_result('ridge', w, loss)
 
     def test_logistic_regression(self):

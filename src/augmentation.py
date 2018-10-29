@@ -6,9 +6,9 @@ from src.helpers import get_column_names
 def build_poly(x, degree):
     """
     Polynomial basis functions for input data x, for j=0 up to j=degree.
-    :param x:
-    :param degree:
-    :return:
+    :param x: Feature matrix
+    :param degree: maximum degree of polynomial base (from 1 to degree)
+    :return: extended data matrix through polynomial base
     """
     poly = np.ones((len(x), 1))
     for deg in range(1, degree + 1):
@@ -18,35 +18,20 @@ def build_poly(x, degree):
 
 def build_poly_minus(x, degree):
     """
-    :param x:
-    :param degree:
-    :return:
+    :param x: Feature matrix
+    :param degree: maximum degree of polynomial base (from - degree to degree)
+    :return: extended data matrix through polynomial base
     """
     poly = np.ones((len(x), 1))
     for deg in range(1, degree + 1):
         poly = np.c_[poly, np.power(x, deg), x * -1]
     return poly
 
-
-def poly_plus_cos(x, degree):
-    """
-    @TODO remove? document?
-    :param x:
-    :param degree:
-    :return:
-    """
-    poly = np.ones((len(x), 1))
-    for deg in range(1, degree + 1):
-        poly = np.c_[poly, np.power(np.cos(x), deg)]
-        poly = np.c_[poly, np.power(x, deg)]
-    return poly
-
-
 def mean_replacement(x):
     """
     this fucntion replace the '-999' values with the mean of the column
-    :param x: dataset
-    :return: new dataset
+    :param x: Feature Matrix
+    :return: Feature Matrix with replaced mean
     """
     inds = np.where(np.equal(-999, x))
     x_clean = x.copy()
@@ -58,18 +43,19 @@ def mean_replacement(x):
     return complete
 
 
-def gaussian_distance_22(x, cols, old_new):
+def gaussian_distance_22(x, remaining_columns, old_new):
     """
-    :param x:
-    :param cols:
-    :param old_new:
-    :return:
+    Adds Gaussian distance betwen features of the same category (mass, centrality and eta only)
+    :param x: Feature Matrix
+    :param remaining_columns: "Remaining column" after drop_999 see doc of this function for more
+    :param old_new: mapping from old column to new column after drop_999
+    :return: extended Feature matrix through Gaussian Distance
     """
     types = ["mass", "centrality", "eta"]
 
     ar = np.array(get_column_names())
 
-    names_cols = list(ar[cols])
+    names_cols = list(ar[remaining_columns])
 
     for typ in types:
         for i, coli in enumerate(names_cols):
@@ -86,8 +72,12 @@ def gaussian_distance_22(x, cols, old_new):
 
 def angles_extension_22(x, remaining_columns, old_new, nc):
     """
-    @TODO document? move? => yes please move :) 
     Adds cosine difference of pairwise angle to the data.
+    :param x: Feature Matrix
+    :param remaining_columns: "Remaining column" after drop_999 see doc of this function for more
+    :param old_new: mapping from old column to new column after drop_999
+    :return: extended Feature matrix through Gaussian Distance
+    :nc: names of the features
     """
     full = x
 
@@ -112,9 +102,8 @@ def angles_extension_22(x, remaining_columns, old_new, nc):
 
 def drop_999(x):
     """
-    this function drops a column if more than 50% of its elements are -999
-    :param x:
-    :return:
+    :param x: Feature Matrix
+    :return: Feature Matrix with column with more than 50% of invalid value removed
     """
     drop = {}
     count = {}
@@ -139,8 +128,8 @@ def features_expansion(x, degree=9):
     """
     this function does the preprocessing and then  the augmentation using angles_extansion, build_poly
     and gaussiance distances.
-    :param x:
-    :param degree:
+    :param x: Feature matrix
+    :param degree: maximum degree of polynomial base passed to build_poly function
 
     :return: augmented dataset
     """

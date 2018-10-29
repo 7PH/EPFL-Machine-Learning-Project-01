@@ -9,8 +9,15 @@ from src.run_best_model import make_22_weights, predict_22
 
 
 def cross_validation_22(y, x, k_indices, k, lambda_, degree):
-    """return the loss of ridge regression."""
-
+    """
+    :param k_indices: Indices of Data on which cross validation is performed
+    :param y: Label vector
+    :param x: Feature Matrix
+    :param k: round number of the k fold
+    :param lamb: Penalisation factor for ridge regression
+    :param degree: Maximun degree for build_poly
+    :return: k'th round of k-fold for given parameters
+    """
     te_indice = k_indices[k]
     tr_indice = k_indices[~(np.arange(k_indices.shape[0]) == k)]
     tr_indice = tr_indice.reshape(-1)
@@ -31,14 +38,13 @@ def cross_validation_22(y, x, k_indices, k, lambda_, degree):
 
 def k_folder_acc_22(k_fold, y, x, k_indices, lamb, degree):
     """
-    @TODO refactor & document
-    :param k_fold:
-    :param y:
-    :param x:
-    :param k_indices:
-    :param lamb:
-    :param degree:
-    :return:
+    :param k_fold: number of time the training operation is done
+    :param y: Label vector
+    :param x: Feature Matrix
+    :param k_indices: Indices of Data for cross validation
+    :param lamb: Penalisation factor for ridge regression
+    :param degree: Maximun degree for build_poly
+    :return: Average of k-fold performed for given parameters
     """
     acc_tmp = []
     for k in range(k_fold):
@@ -50,11 +56,10 @@ def k_folder_acc_22(k_fold, y, x, k_indices, lamb, degree):
 def build_k_indices(y, k_fold, seed):
     """
     build k indices for k-fold.
-    @TODO document
-    :param y:
-    :param k_fold:
-    :param seed:
-    :return:
+    :param y: Label vector
+    :param k_fold: number of time the training operation is done
+    :param seed: random seed
+    :return: indices used for k-fold operation
     """
     num_row = y.shape[0]
     interval = int(num_row / k_fold)
@@ -68,12 +73,12 @@ def build_k_indices(y, k_fold, seed):
 def best_degree_lambda_acc_22(degrees, lambdas, x, y, k_fold):
     """
     @TODO document
-    :param degrees:
-    :param lambdas:
-    :param x:
-    :param y:
-    :param k_fold:
-    :return:
+    :param degrees: range of degree on which build_poly will be performed
+    :param lambdas: range of penalization term tried for ridge regression
+    :param x: Feature Matrix
+    :param y: Label Vector
+    :param k_fold: number of time the training operation is done
+    :return: best parameters of build poly and lambda in ridge regression in given range
     """
     indices = build_k_indices(y, k_fold, 100)
 
