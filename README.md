@@ -3,6 +3,11 @@
 
 First, you need to clone the repository.
 
+```bash
+git clone https://github.com/7PH/EPFL-Machine-Learning-Project-01.git;
+cd EPFL-Machine-Learning-Project-01;
+```
+
 Then, you can download the CSV files using
 
 ```bash
@@ -42,7 +47,7 @@ The content below is automatically generated
 ./src/augmentation.py:20:    @TODO document
 ./src/augmentation.py:33:    @TODO remove? document?
 ./src/augmentation.py:47:    @TODO document
-./src/implementations.py:66:    @TODO document
+./src/implementations.py:62:    @TODO document
 ./src/kfold.py:16:    @TODO document
 ./src/kfold.py:44:    @TODO document? move?
 ./src/kfold.py:70:    @TODO document
@@ -51,9 +56,6 @@ The content below is automatically generated
 ./src/kfold.py:134:    @TODO refactor & document
 ./src/kfold.py:153:    @TODO document
 ./src/kfold.py:170:    @TODO document
-./src/losses.py:13:    @TODO document
-./src/losses.py:25:    @TODO refactor (important)
-./src/losses.py:38:    @TODO refactor (important)
 ./src/run.py:11:    @TODO document
 ./src/run.py:43:    @TODO document
 ./src/utils.py:6:    @TODO move this (logistic helper)

@@ -8,6 +8,11 @@ CONTENT="
 
 First, you need to clone the repository.
 
+\`\`\`bash
+git clone https://github.com/7PH/EPFL-Machine-Learning-Project-01.git;
+cd EPFL-Machine-Learning-Project-01;
+\`\`\`
+
 Then, you can download the CSV files using
 
 \`\`\`bash
