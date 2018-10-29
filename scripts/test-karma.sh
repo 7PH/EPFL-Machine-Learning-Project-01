@@ -18,8 +18,8 @@ ensure_file_exit "data/train.csv";
 echo "\nVerifying that python linter is installed..";
 ensure_command_exists "pylint";
 
-echo "\nVerifying that python3.6 is installed..";
-ensure_command_exists "python3.6";
+echo "\nVerifying that python3 is installed..";
+ensure_command_exists "python3";
 
 echo "\nEnvironment checks OK";
 exit 0;
