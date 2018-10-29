@@ -16,14 +16,17 @@ class TestImplementations(unittest.TestCase):
 
     def setUp(self):
         self.initial_w = np.zeros((tx.shape[1], 1))
-        self.max_iters = 20
-        self.gamma = 0.1
-        self.lambda_ = 0.001
+        self.max_iters = 100
+        self.gamma = 0.
+        self.lambda_ = 0.
 
     def assert_result(self, name, w, loss):
         pred = predict_labels(w, tx)
         acc = label_accuracy(pred, y)
-        self.assertGreater(acc, 60, msg="Accuracy for " + name + " is suspicious")
+        self.assertEqual(w.shape[0], self.initial_w.shape[0])
+        self.assertEqual(w.shape[1], self.initial_w.shape[1])
+        self.assertGreater(acc, 60, msg="Accuracy suspicious for " + name)
+        print(name, loss)
 
     def test_least_squares_gd(self):
         w, loss = least_squares_GD(y, tx, self.initial_w, self.max_iters, self.gamma)

@@ -22,20 +22,25 @@ def compute_mse(y, tx, w):
 
 def compute_sig_loss(y, tx, w):
     """
-    @TODO refactor (important)
+    Compute loss for logistic regression
 
     :param y:
     :param tx:
     :param w:
     :return:
     """
+    # Prevents passing 0 to log function
+    log_precision = 0.00001
+    # Compute loss
     pred = sigmoid(tx @ w)
-    return - np.asscalar((y.T @ np.log(pred)) + ((1 - y).T @ np.log(1 - pred)))
+    pred[np.where(pred > 1 - log_precision)] = 1 - log_precision
+    pred[np.where(pred < log_precision)] = log_precision
+    return - (y.T @ np.log(pred)) + ((1 - y).T @ np.log(1. - pred))
 
 
 def compute_reg_sig_loss(y, tx, w, lambda_):
     """
-    @TODO refactor (important)
+    Compute loss for regularized logistic regression
 
     :param y:
     :param tx:

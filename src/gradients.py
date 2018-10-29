@@ -11,5 +11,5 @@ def compute_gradient_mse(y, tx, w):
     # this function computes the gradient with a mse lost function
 
     e = y - np.dot(tx, w)
-    grad = - np.dot(tx.T, e) / len(y)
+    grad = - np.dot(tx.T, e) / tx.shape[0]
     return grad, e

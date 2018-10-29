@@ -19,27 +19,25 @@ def least_squares_GD(y, tx, initial_w, max_iters, gamma):
 
     # Set an initial weight's vector and compute its loss
     w = initial_w
-    loss = compute_mse(y, tx, w)
 
     for iter in range(max_iters):
         # compute loss and gradient
         grad, e = compute_gradient_mse(y, tx, w)
-        loss = calculate_mse(e)
 
-        # update the weight's vector 
+        # update the weight's vector
         w -= gamma * grad
 
-    return w, loss
+    return w, compute_mse(y, tx, w)
 
 
 def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
     """
-    Given a gamma parameter, we iterate to find the weight's vector :"max_iters" given a parameter.
+    Given a gamma parameter, we iterate to find the weight's vector
 
     :param y:
     :param tx:
     :param initial_w:
-    :param max_iters:
+    :param max_iters: Number of iterations to perform
     :param gamma:
     :return:
     """
@@ -48,7 +46,7 @@ def least_squares_SGD(y, tx, initial_w, max_iters, gamma):
     w = initial_w
     loss = compute_mse(y, tx, w)
     for iter in range(max_iters):
-        for y_batch, tx_batch in batch_iter(y, tx, batch_size=1, num_batches=1):
+        for y_batch, tx_batch in batch_iter(y, tx, 1):
             # compute a stochastic gradient and loss
             grad, e = compute_gradient_mse(y_batch, tx_batch, w)
             loss = calculate_mse(e)
